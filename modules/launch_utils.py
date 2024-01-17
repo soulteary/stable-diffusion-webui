@@ -416,12 +416,13 @@ def prepare_environment():
         run_pip(f"install -r \"{os.path.join(repo_dir('CodeFormer'), 'requirements.txt')}\"", "requirements for CodeFormer")
         startup_timer.record("install CodeFormer requirements")
 
-    if not os.path.isfile(requirements_file):
-        requirements_file = os.path.join(script_path, requirements_file)
+    if os.environ.get('SKIP_LAUNCH_REQUIREMENT_MET', None) is None:
+        if not os.path.isfile(requirements_file):
+            requirements_file = os.path.join(script_path, requirements_file)
 
-    if not requirements_met(requirements_file):
-        run_pip(f"install -r \"{requirements_file}\"", "requirements")
-        startup_timer.record("install requirements")
+        if not requirements_met(requirements_file):
+            run_pip(f"install -r \"{requirements_file}\"", "requirements")
+            startup_timer.record("install requirements")
 
     if not args.skip_install:
         run_extensions_installers(settings_file=args.ui_settings_file)
