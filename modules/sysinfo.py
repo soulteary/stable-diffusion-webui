@@ -35,6 +35,7 @@ environment_whitelist = {
     "COMMANDLINE_ARGS",
     "IGNORE_CMD_ARGS_ERRORS",
     "SKIP_LAUNCH_GIT_CLONE",
+    "SKIP_LAUNCH_REQUIREMENT_MET",
 }
 
 
